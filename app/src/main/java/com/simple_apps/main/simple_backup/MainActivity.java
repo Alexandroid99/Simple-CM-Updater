@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = this.getPreferences(Context.MODE_PRIVATE);
         editor = preferences.edit();
 
-        dateFormatter = new SimpleDateFormat("dd-MM-yy");
+        //dateFormatter = new SimpleDateFormat("dd-MM-yy");
 
         try {
             lastInstallation = preferences.getInt("date", 0);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-      TimerTask task = new TimerTask().setVariables(this, downloadID,dateFormatter);
+      TimerTask task = new TimerTask().setVariables(this, downloadID);
         task.run();
     }
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         Logger.getLogger("checkTime").log(Level.SEVERE, String.valueOf(hour));
 
-        if(hour >= 12 && hour <= 15){
+        if(hour >= 4 && hour <= 6){
             return 0;
         }
         return 1;
@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         private long downloadID;
         private long reference;
         private Calendar tmpCalendar;
-        private SimpleDateFormat formatter;
         private boolean installedW = false;
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 
@@ -158,10 +157,9 @@ public class MainActivity extends AppCompatActivity {
             }
         } ;
 
-        public TimerTask setVariables(Context context, long downloadId, SimpleDateFormat formatter ) {
+        public TimerTask setVariables(Context context, long downloadId ) {
             this.context = context;
             this.downloadID = downloadId;
-            this.formatter = formatter;
             return this;
         }
 
