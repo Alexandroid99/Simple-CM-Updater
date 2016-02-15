@@ -85,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void downloadFile(){
-        // https://download.cyanogenmod.org/get/bacon-latest.zip
+        // changed to own build server URL
 
         if(downloadManager == null){
             downloadManager = (DownloadManager) this.getSystemService(DOWNLOAD_SERVICE);
         }
-        Uri uri = Uri.parse("https://download.cyanogenmod.org/get/bacon-latest.zip");
+        Uri uri = Uri.parse("http://dirsec.net/builds/bacon-latest.zip");
         DownloadManager.Request request = new DownloadManager.Request(uri);
 
-            request.setDestinationInExternalPublicDir("/cmupdater", "CM-Latest.zip");
+            request.setDestinationInExternalPublicDir("/cmupdater", "CM-Latest-hammerheadcaf.zip");
 
        downloadID = downloadManager.enqueue(request);
      //   Logger.getLogger("DOWNLOAD-ID").log(Level.SEVERE,String.valueOf(downloadID));
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createrecoveryScript(){
         String backupCommands ="\"backup SCDBE\"";
-        String installCommands ="\"install /storage/emulated/0/cmupdater/CM-Latest.zip\"";
+        String installCommands ="\"install /storage/emulated/0/cmupdater/CM-Latest-hammerheadcaf.zip\"";
 
 
         Shell.SU.run("echo " + backupCommands +" > /cache/recovery/openrecoveryscript");
